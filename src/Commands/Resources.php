@@ -51,7 +51,8 @@ class Resources extends Command
     protected function request($name)
     {
         $name = $name . 'Request';
-        $path = $this->getPath($name, 'Requests');
+
+        $path = $this->getPath($name, 'Http/Requests');
 
         if ($this->alreadyExists($path)) $this->error($name . ' already exists!');
 
@@ -63,7 +64,7 @@ class Resources extends Command
             $this->getStub('Request')
         );
 
-        file_put_contents(app_path("Requests/{$name}.php"), $requestTemplate);
+        file_put_contents(app_path("/Http/Requests/{$name}.php"), $requestTemplate);
     }
 
     protected function model($name)
