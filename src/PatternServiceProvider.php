@@ -1,10 +1,12 @@
 <?php
 
-namespace Wecode\ServiceRepository;
+namespace Wecode\Pattern;
 
 use Illuminate\Support\ServiceProvider;
 
-class ServiceRepositoryServiceProvider extends ServiceProvider
+use Wecode\Pattern\Commands\Resources;
+
+class PatternServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap services.
@@ -13,7 +15,7 @@ class ServiceRepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
     }
 
     /**
@@ -23,6 +25,6 @@ class ServiceRepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->commands([Resources::class]);
     }
 }

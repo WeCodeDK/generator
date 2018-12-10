@@ -1,12 +1,5 @@
 {
-    "name": "wecode/wepattern",
+    "name": "wecode/pattern",
     "authors":[],
-    "require": {},
-    "extra": {
-        "laravel": {
-            "providers": [
-                "WeCode\\WePattern\\WePatternServiceProvider"
-            ]
-        }
-    }
+    "require": {}
 }

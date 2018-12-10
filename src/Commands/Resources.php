@@ -1,12 +1,12 @@
 <?php
 
-namespace Wecode\ServiceRepository\Commands;
+namespace Wecode\Pattern\Commands;
 
 use Illuminate\Console\Command;
 
-class CreateCommand extends Command
+class Resources extends Command
 {
-    protected $signature = 'create:resources';
+    protected $signature = 'resources:create {filename}';
 
     protected $description = 'Create controller, model, service and repository files';
 
@@ -17,6 +17,6 @@ class CreateCommand extends Command
 
     public function handle()
     {
-
+        echo 'I WORRRK';
     }
 }
