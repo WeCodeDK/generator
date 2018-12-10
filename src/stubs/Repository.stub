@@ -3,8 +3,87 @@
 namespace App\Repositories;
 
 use App\Models\{{modelName}};
+use Illuminate\Support\Facades\DB;
 
 class {{repositoryName}}
 {
+    public function get(int $id)
+    {
+        try {
+         ${{modelVar}} = {{modelName}}::findOrFail($id);
 
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        return ${{modelVar}};
+    }
+
+    public function getAll()
+    {
+        try {
+            ${{modelVar}} = {{modelName}}::all();
+
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        return ${{modelVar}};
+    }
+
+    public function create(array $data)
+    {
+        DB::beginTransaction();
+
+        try {
+            ${{modelVar}} = new {{modelName}};
+
+            ${{modelVar}}->fill($data);
+            ${{modelVar}}->save();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
+        DB::commit();
+
+        return ${{modelVar}};
+    }
+
+    public function update(int $id, array $data)
+    {
+        DB::beginTransaction();
+
+        try {
+            ${{modelVar}} = {{modelName}}::findOrFail($id);
+
+            ${{modelVar}}->fill($data);
+            ${{modelVar}}->save();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
+        DB::commit();
+
+        return ${{modelVar}};
+    }
+
+    public function delete(int $id)
+    {
+         DB::beginTransaction();
+
+        try {
+            ${{modelVar}} = {{modelName}}::findOrFail($id);
+
+            ${{modelVar}}->delete();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
+        DB::commit();
+
+        return ${{modelVar}};
+    }
 }

@@ -19,12 +19,12 @@ class Resources extends Command
     public function handle()
     {
         $name = $this->getNameInput();
-
-        $this->controller($name);
-        $this->request($name);
-        $this->resource($name);
+//
+//        $this->controller($name);
+//        $this->request($name);
+//        $this->resource($name);
         $this->model($name);
-        $this->service($name);
+//        $this->service($name);
         $this->repository($name);
     }
 
@@ -140,8 +140,8 @@ class Resources extends Command
         $this->makeDirectory($path);
 
         $repositoryTemplate = str_replace(
-            ['{{repositoryName}}', '{{modelName}}'],
-            [$name, $originName],
+            ['{{repositoryName}}', '{{modelName}}', '{{modelVar}}'],
+            [$name, $originName, strtolower($originName)],
             $this->getStub('Repository')
         );
 
