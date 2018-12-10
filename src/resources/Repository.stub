@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Repositories;
+
+class {{repositoryName}}
+{
+    public function __construct()
+    {
+
+    }
+}
