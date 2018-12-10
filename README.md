@@ -3,7 +3,8 @@
 This repo is for generating template files for the Service Repository pattern.
 
 
-###Usage
+**Usage**
+
 Resource names should be provided in singular. Controller names will be converted to plural.
 ```php
 php artisan resources:create Car
