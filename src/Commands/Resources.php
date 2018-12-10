@@ -115,7 +115,7 @@ class Resources extends Command
 
         if ($this->alreadyExists($path)) $this->error($name . ' already exists!');
 
-       $this->call('make:migration', ['name' => 'create_table_'  . strtolower($name)]);
+        $this->call('make:migration', ['name' => 'create_table_'  . strtolower($name)]);
 
         $this->makeDirectory($path);
 

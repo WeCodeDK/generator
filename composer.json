@@ -1,5 +1,12 @@
 {
-    "name": "wecode/Generator",
+    "name": "wecode/generator",
     "authors":[],
-    "require": {}
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Wecode\\Generator\\GeneratorServiceProvider"
+            ]
+        }
+    }
 }
