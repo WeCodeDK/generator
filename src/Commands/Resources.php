@@ -24,7 +24,7 @@ class Resources extends Command
 //        $this->request($name);
 //        $this->resource($name);
         $this->model($name);
-//        $this->service($name);
+        $this->service($name);
         $this->repository($name);
     }
 
@@ -122,8 +122,8 @@ class Resources extends Command
         $this->makeDirectory($path);
 
         $serviceTemplate = str_replace(
-            ['{{serviceName}}', '{{repositoryName}}', '{{repositoryVar}}'],
-            [$name, $origName . 'Repository', strtolower($origName) . 'Repository'],
+            ['{{serviceName}}', '{{repositoryName}}', '{{repositoryVar}}', '{{var}}'],
+            [$name, $origName . 'Repository', strtolower($origName) . 'Repository', strtolower($origName)],
             $this->getStub('Service')
         );
 

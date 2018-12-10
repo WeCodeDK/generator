@@ -12,4 +12,39 @@ class {{serviceName}}
     {
         $this->{{repositoryVar}} = ${{repositoryVar}};
     }
+
+    public function get(int $id)
+    {
+        ${{var}} = $this->{{repositoryVar}}->get($id);
+
+        return ${{var}};
+    }
+
+    public function getAll()
+    {
+        ${{var}} = $this->{{repositoryVar}}->getAll();
+
+        return ${{var}};
+    }
+
+    public function create(array $data)
+    {
+        ${{var}} = $this->{{repositoryVar}}->create($data);
+
+        return ${{var}};
+    }
+
+    public function update(int $id, array $data)
+    {
+        ${{var}} = $this->{{repositoryVar}}->update($id, $data);
+
+        return ${{var}};
+    }
+
+    public function delete(int $id)
+    {
+        ${{var}} = $this->{{repositoryVar}}->delete($id);
+
+        return ${{var}};
+    }
 }
