@@ -1,7 +1,17 @@
 {
     "name": "wecode/generator",
-    "authors":[],
-    "require": {},
+    "homepage": "https://github.com/WeCodeDK/generator",
+    "authors":[
+        {
+            "name": "Jarl Eriksen",
+            "email": "jarl@wecode.dk"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "laravel/laravel" : "^5.5.*"
+    },
+    "minimum-stability": "stable",
     "extra": {
         "laravel": {
             "providers": [
