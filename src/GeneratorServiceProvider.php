@@ -1,12 +1,12 @@
 <?php
 
-namespace Wecode\Pattern;
+namespace Wecode\Generator;
 
 use Illuminate\Support\ServiceProvider;
 
-use Wecode\Pattern\Commands\Resources;
+use Wecode\Generator\Commands\Resources;
 
-class PatternServiceProvider extends ServiceProvider
+class GeneratorServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap services.
