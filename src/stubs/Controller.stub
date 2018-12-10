@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Services\{{serviceName}};
+use App\Http\
 
 class {{controllerName}} extends Controller
 {

@@ -20,16 +20,21 @@ class Resources extends Command
     {
         $name = $this->getNameInput();
 
-        $this->controller($name);
+//        $this->controller($name);
         $this->request($name);
-        $this->model($name);
-        $this->service($name);
-        $this->repository($name);
+//        $this->resource($name);
+//        $this->model($name);
+//        $this->service($name);
+//        $this->repository($name);
     }
 
     protected function controller($origName)
     {
         $name = str_plural($origName) . 'Controller';
+
+        $path = $this->getPath($name, 'Http/Controllers');
+
+        if ($this->alreadyExists($path)) $this->error($name . ' already exists!');
 
         $controllerTemplate = str_replace(
             [
@@ -50,7 +55,7 @@ class Resources extends Command
 
     protected function request($name)
     {
-        $name = $name . 'Request';
+        $name = $name . '/'. $name . 'CreateRequest';
 
         $path = $this->getPath($name, 'Http/Requests');
 
@@ -65,6 +70,25 @@ class Resources extends Command
         );
 
         file_put_contents(app_path("/Http/Requests/{$name}.php"), $requestTemplate);
+    }
+
+    protected function resource($name)
+    {
+        $name = $name . '/' . $name . 'Resource';
+
+        $path = $this->getPath($name, 'Http/Resources');
+
+        if ($this->alreadyExists($path)) $this->error($name . ' already exists!');
+
+        $this->makeDirectory($path);
+
+        $requestTemplate = str_replace(
+            ['{{resourceName}}'],
+            [$name],
+            $this->getStub('Resource')
+        );
+
+        file_put_contents(app_path("/Http/Resources/{$name}.php"), $requestTemplate);
     }
 
     protected function model($name)
