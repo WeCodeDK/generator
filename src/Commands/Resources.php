@@ -20,12 +20,12 @@ class Resources extends Command
     {
         $name = $this->getNameInput();
 
-//        $this->controller($name);
+        $this->controller($name);
         $this->request($name);
-//        $this->resource($name);
-//        $this->model($name);
-//        $this->service($name);
-//        $this->repository($name);
+        $this->resource($name);
+        $this->model($name);
+        $this->service($name);
+        $this->repository($name);
     }
 
     protected function controller($origName)
@@ -39,56 +39,60 @@ class Resources extends Command
         $controllerTemplate = str_replace(
             [
                 '{{controllerName}}',
+                '{{requestName}}',
                 '{{serviceName}}',
                 '{{serviceVarName}}'
             ],
             [
                 $name,
+                $origName . "\\" . $origName . 'CreateRequest',
                 $origName . 'Service',
                 strtolower($origName) . 'Service'
             ],
             $this->getStub('Controller')
         );
 
-        file_put_contents(app_path("/Http/Controllers/{$name}.php"), $controllerTemplate);
+        file_put_contents($path, $controllerTemplate);
     }
 
-    protected function request($name)
+    protected function request($originName)
     {
-        $name = $name . '/'. $name . 'CreateRequest';
+        $name = $originName . 'CreateRequest';
+        $folder = $originName . '/' . $name;
 
-        $path = $this->getPath($name, 'Http/Requests');
+        $path = $this->getPath($folder, 'Http/Requests');
 
         if ($this->alreadyExists($path)) $this->error($name . ' already exists!');
 
         $this->makeDirectory($path);
 
         $requestTemplate = str_replace(
-            ['{{requestName}}'],
-            [$name],
+            ['{{requestName}}', '{{folder}}'],
+            [$name, $originName],
             $this->getStub('Request')
         );
 
-        file_put_contents(app_path("/Http/Requests/{$name}.php"), $requestTemplate);
+        file_put_contents($path, $requestTemplate);
     }
 
-    protected function resource($name)
+    protected function resource($originName)
     {
-        $name = $name . '/' . $name . 'Resource';
+        $name = $originName . 'CreateResource';
+        $folder = $originName . '/' . $name;
 
-        $path = $this->getPath($name, 'Http/Resources');
+        $path = $this->getPath($folder, 'Http/Resources');
 
         if ($this->alreadyExists($path)) $this->error($name . ' already exists!');
 
         $this->makeDirectory($path);
 
         $requestTemplate = str_replace(
-            ['{{resourceName}}'],
-            [$name],
+            ['{{resourceName}}', '{{folder}}'],
+            [$name, $originName],
             $this->getStub('Resource')
         );
 
-        file_put_contents(app_path("/Http/Resources/{$name}.php"), $requestTemplate);
+        file_put_contents($path, $requestTemplate);
     }
 
     protected function model($name)
@@ -105,7 +109,7 @@ class Resources extends Command
             $this->getStub('Model')
         );
 
-        file_put_contents(app_path("Models/{$name}.php"), $modelTemplate);
+        file_put_contents($path, $modelTemplate);
     }
 
     protected function service($origName)
@@ -118,25 +122,17 @@ class Resources extends Command
         $this->makeDirectory($path);
 
         $serviceTemplate = str_replace(
-            [
-                '{{serviceName}}',
-                '{{repositoryName}}',
-                '{{repositoryVar}}'
-            ],
-            [
-                $name,
-                $origName . 'Repository',
-                strtolower($origName) . 'Repository'
-            ],
+            ['{{serviceName}}', '{{repositoryName}}', '{{repositoryVar}}'],
+            [$name, $origName . 'Repository', strtolower($origName) . 'Repository'],
             $this->getStub('Service')
         );
 
-        file_put_contents(app_path("Services/{$name}.php"), $serviceTemplate);
+        file_put_contents($path, $serviceTemplate);
     }
 
-    protected function repository($name)
+    protected function repository($originName)
     {
-        $name = $name . 'Repository';
+        $name = $originName . 'Repository';
         $path = $this->getPath($name, 'Repositories');
 
         if ($this->alreadyExists($path)) $this->error($name . ' already exists!');
@@ -144,12 +140,12 @@ class Resources extends Command
         $this->makeDirectory($path);
 
         $repositoryTemplate = str_replace(
-            ['{{repositoryName}}'],
-            [$name],
+            ['{{repositoryName}}', '{{modelName}}'],
+            [$name, $originName],
             $this->getStub('Repository')
         );
 
-        file_put_contents(app_path("Repositories/{$name}.php"), $repositoryTemplate);
+        file_put_contents($path, $repositoryTemplate);
     }
 
     protected function formatNames($name, $resource)
