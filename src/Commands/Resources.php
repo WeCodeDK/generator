@@ -3,6 +3,7 @@
 namespace Wecode\Generator\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 
 class Resources extends Command
@@ -113,6 +114,8 @@ class Resources extends Command
         $path = $this->getPath($name, 'Models');
 
         if ($this->alreadyExists($path)) $this->error($name . ' already exists!');
+
+       $this->call('make:migration', ['name' => 'create_table_'  . strtolower($name)]);
 
         $this->makeDirectory($path);
 
