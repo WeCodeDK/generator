@@ -21,18 +21,26 @@ class Resources extends Command
         $name = $this->getNameInput();
 
         $this->controller($name);
-        $this->model($name);
+//        $this->model($name);
         $this->service($name);
         $this->repository($name);
     }
 
-    protected function controller($name)
+    protected function controller($origName)
     {
-        $name = str_plural($name) . 'Controller';
+        $name = str_plural($origName) . 'Controller';
 
         $controllerTemplate = str_replace(
-            ['{{controllerName}}'],
-            [$name],
+            [
+                '{{controllerName}}',
+                '{{serviceName}}',
+                '{{serviceVarName}}'
+            ],
+            [
+                $name,
+                $origName . 'Service',
+                strtolower($origName) . 'Service'
+            ],
             $this->getStub('Controller')
         );
 
@@ -56,9 +64,9 @@ class Resources extends Command
         file_put_contents(app_path("Models/{$name}.php"), $modelTemplate);
     }
 
-    protected function service($name)
+    protected function service($origName)
     {
-        $name = $name . 'Service';
+        $name = $origName . 'Service';
         $path = $this->getPath($name, 'Services');
 
         if ($this->alreadyExists($path)) $this->error($name . ' already exists!');
@@ -66,8 +74,16 @@ class Resources extends Command
         $this->makeDirectory($path);
 
         $serviceTemplate = str_replace(
-            ['{{serviceName}}'],
-            [$name],
+            [
+                '{{serviceName}}',
+                '{{repositoryName}}',
+                '{{repositoryVar}}'
+            ],
+            [
+                $name,
+                $origName . 'Repository',
+                strtolower($origName) . 'Repository'
+            ],
             $this->getStub('Service')
         );
 
@@ -90,6 +106,11 @@ class Resources extends Command
         );
 
         file_put_contents(app_path("Repositories/{$name}.php"), $repositoryTemplate);
+    }
+
+    protected function formatNames($name, $resource)
+    {
+        return $name . $resource;
     }
 
     protected function getPath($name, $folder)
@@ -120,7 +141,7 @@ class Resources extends Command
 
     protected function getStub($type)
     {
-        return file_get_contents("./packages/wecode/generator/src/resources/$type.stub");
+        return file_get_contents("./packages/wecode/generator/src/stubs/$type.stub");
     }
 
     protected function rootNamespace()

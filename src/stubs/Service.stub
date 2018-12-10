@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Services;
+
+use App\Repositories\{{repositoryName}};
+
+class {{serviceName}}
+{
+    private ${{repositoryVar}};
+
+    public function __construct({{repositoryName}} ${{repositoryVar}})
+    {
+        $this->{{repositoryVar}} = ${{repositoryVar}};
+    }
+}

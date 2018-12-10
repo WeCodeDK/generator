@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Services\{{serviceName}};
+
+class {{controllerName}} extends Controller
+{
+    private ${{serviceVarName}};
+
+    public function __construct({{serviceName}} ${{serviceVarName}})
+    {
+        $this->{{serviceVarName}} = ${{serviceVarName}};
+    }
+}

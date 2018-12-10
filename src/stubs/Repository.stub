@@ -2,10 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Models\{{modelName}};
+
 class {{repositoryName}}
 {
-    public function __construct()
-    {
 
-    }
 }
