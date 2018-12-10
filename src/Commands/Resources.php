@@ -21,7 +21,8 @@ class Resources extends Command
         $name = $this->getNameInput();
 
         $this->controller($name);
-//        $this->model($name);
+        $this->request($name);
+        $this->model($name);
         $this->service($name);
         $this->repository($name);
     }
@@ -45,6 +46,24 @@ class Resources extends Command
         );
 
         file_put_contents(app_path("/Http/Controllers/{$name}.php"), $controllerTemplate);
+    }
+
+    protected function request($name)
+    {
+        $name = $name . 'Request';
+        $path = $this->getPath($name, 'Requests');
+
+        if ($this->alreadyExists($path)) $this->error($name . ' already exists!');
+
+        $this->makeDirectory($path);
+
+        $requestTemplate = str_replace(
+            ['{{requestName}}'],
+            [$name],
+            $this->getStub('Request')
+        );
+
+        file_put_contents(app_path("Requests/{$name}.php"), $requestTemplate);
     }
 
     protected function model($name)
