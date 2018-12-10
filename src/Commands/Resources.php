@@ -19,10 +19,10 @@ class Resources extends Command
     public function handle()
     {
         $name = $this->getNameInput();
-//
-//        $this->controller($name);
-//        $this->request($name);
-//        $this->resource($name);
+
+        $this->controller($name);
+        $this->request($name);
+        $this->resource($name);
         $this->model($name);
         $this->service($name);
         $this->repository($name);
@@ -36,18 +36,31 @@ class Resources extends Command
 
         if ($this->alreadyExists($path)) $this->error($name . ' already exists!');
 
+        $folder = $origName;
+        $requestName = $origName . 'CreateRequest';
+        $resourceName =  $origName . 'CreateResource';
+
         $controllerTemplate = str_replace(
             [
                 '{{controllerName}}',
-                '{{requestName}}',
+                '{{createRequestImport}}',
+                '{{createRequestName}}',
+                '{{createResourceImport}}',
+                '{{createResourceName}}',
                 '{{serviceName}}',
-                '{{serviceVarName}}'
+                '{{serviceVarName}}',
+                '{{var}}'
+
             ],
             [
                 $name,
-                $origName . "\\" . $origName . 'CreateRequest',
+                $folder . "\\" . $requestName,
+                $requestName,
+                $folder . "\\" . $resourceName,
+                $resourceName,
                 $origName . 'Service',
-                strtolower($origName) . 'Service'
+                strtolower($origName) . 'Service',
+                strtolower($origName)
             ],
             $this->getStub('Controller')
         );

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Services\{{serviceName}};
-use App\Http\Requests\{{requestName}};
+use App\Http\Requests\{{createRequestImport}};
+use App\Http\Resources\{{createResourceImport}};
 
 class {{controllerName}} extends Controller
 {
@@ -13,5 +15,55 @@ class {{controllerName}} extends Controller
     public function __construct({{serviceName}} ${{serviceVarName}})
     {
         $this->{{serviceVarName}} = ${{serviceVarName}};
+    }
+
+    public function get(int $id)
+    {
+        ${{var}} = $this->{{serviceVarName}}->get($id);
+
+        return response()->json([
+           'success' => '{{var}} was fetched',
+           'data' => ${{var}}
+        ], 200);
+    }
+
+    public function getAll()
+    {
+         ${{var}} = $this->{{serviceVarName}}->getAll();
+
+         return response()->json([
+            'success' => '{{var}}s was fetched',
+            'data' => ${{var}}
+         ], 200);
+    }
+
+    public function create({{createRequestName}} $request)
+    {
+        ${{var}} = $this->{{serviceVarName}}->create($request->all());
+
+        return response()->json([
+           'success' => '{{var}} was created',
+           'data' => new {{createResourceName}}(${{var}})
+        ], 201);
+    }
+
+    public function update(int $id, Request $request)
+    {
+         ${{var}} = $this->{{serviceVarName}}->update($id, $request->all());
+
+         return response()->json([
+            'success' => '{{var}} was updated',
+            'data' => ${{var}}
+         ], 200);
+    }
+
+    public function delete(int $id)
+    {
+        ${{var}} = $this->{{serviceVarName}}->delete($id);
+
+         return response()->json([
+            'success' => '{{var}} was deleted',
+            'data' => ${{var}}
+         ], 200);
     }
 }
