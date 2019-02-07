@@ -197,7 +197,7 @@ class Resources extends Command
 
     protected function getStub($type)
     {
-        return file_get_contents("./packages/wecode/generator/src/stubs/$type.stub");
+        return file_get_contents("./vendor/wecode/generator/src/stubs/$type.stub");
     }
 
     protected function rootNamespace()
